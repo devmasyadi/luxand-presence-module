@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Sample Face Recognition</string>
+    <string name="save">Save</string>
+    <string name="save_image">SAVE IMAGE ?</string>
+    <string name="msg_add_image_person">FACE MUST BE CLEAR, NO SKEW, NO ROTATION, AND GOOD ILLUMINATION</string>
+    <string name="dummy_name">AHMAD SUYADI</string>
+    <string name="content_description_label">contentDescriptionLabel</string>
+    <string name="cancel">Cancel</string>
+</resources>

@@ -1,0 +1,3 @@
+include ':luxandfacesdk'
+include ':app'
+rootProject.name = "luxandPresenceModule"
