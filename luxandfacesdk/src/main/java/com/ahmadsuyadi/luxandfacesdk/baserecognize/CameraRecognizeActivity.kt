@@ -12,6 +12,7 @@ import android.os.Process
 import android.view.*
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ahmadsuyadi.luxandfacesdk.R
@@ -36,7 +37,7 @@ import com.luxand.FSDK.SetTrackerMultipleParameters
 import org.jetbrains.anko.AnkoLogger
 
 
-open class CameraRecognizeActivity : Activity(), AnkoLogger {
+open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
     private var mIsFailed = false
     private var mLayout: FrameLayout? = null

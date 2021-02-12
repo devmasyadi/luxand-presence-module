@@ -161,7 +161,7 @@ class Preview(private var mContext: Context, private var mDraw: ProcessImageAndD
     }
 
     private fun makeResizeForCameraAspect(cameraAspectRatio: Float) {
-        var layoutParams = this.layoutParams
+        val layoutParams = this.layoutParams
         val matchParentWidth = this.width
         val newHeight = (matchParentWidth / cameraAspectRatio).toInt()
         if (newHeight != layoutParams.height) {
