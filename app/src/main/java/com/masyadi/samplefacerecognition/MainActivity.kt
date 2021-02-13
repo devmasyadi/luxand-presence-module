@@ -15,8 +15,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ConfigLuxandFaceSDK.licenseKey = "FWa0UNaz6m45376JXvifdGgWOoTh8hH5qnbAVIG36yVHBfkgVZhoGw5crHXyocycI3lIlA1uP3jyCWJVcewMVI0nob/algziqBcTOpPwEHzHsBf8KZeY3/hx087iFyIyHCkfXbHehYhm348PlpuKkSMujHthaZ6ZXQUM0PbhUr4="
-
         binding.button.setOnClickListener {
             startActivity<DataTrainingActivity>()
         }
