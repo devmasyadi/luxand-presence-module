@@ -41,7 +41,8 @@ import org.jetbrains.anko.AnkoLogger
 
 open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
-    private lateinit var bottomMenu: BottomMenuBinding
+    lateinit var bottomMenu: BottomMenuBinding
+    lateinit var topMenu: TopMenuBinding
     private var mIsFailed = false
     private var wasStopped = false
     private var isFrontCamera = true
@@ -241,7 +242,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
             )
         )
         if(isShowStepAttendance) {
-            val topMenu = TopMenuBinding.inflate(layoutInflater)
+            topMenu = TopMenuBinding.inflate(layoutInflater)
             addContentView(
                 topMenu.root,
                 ViewGroup.LayoutParams(
