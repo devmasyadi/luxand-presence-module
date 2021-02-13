@@ -1,7 +1,6 @@
 package com.ahmadsuyadi.luxandfacesdk.baserecognize
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ahmadsuyadi.luxandfacesdk.R
+import com.ahmadsuyadi.luxandfacesdk.databinding.ActivityCameraRecognizeBinding
 import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenuBinding
 import com.ahmadsuyadi.luxandfacesdk.model.DataTraining
 import com.ahmadsuyadi.luxandfacesdk.utils.ConfigLuxandFaceSDK
@@ -39,8 +39,9 @@ import org.jetbrains.anko.AnkoLogger
 
 open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
+    lateinit var cameraRecognizeContainer: ActivityCameraRecognizeBinding
+    private lateinit var bottomMenuBinding: BottomMenuBinding
     private var mIsFailed = false
-    private var mLayout: FrameLayout? = null
     private var wasStopped = false
     private var isFrontCamera = true
     private var isTurnOnFlash = false
@@ -50,7 +51,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     private var iCameraAttendance: ICameraAttendance? = null
     private var database = "ahmadsuyadi.dat"
     private var pathImageToSave = ""
-    private lateinit var bottomMenuBinding: BottomMenuBinding
+    private var mLayout: FrameLayout? = null
 
     fun setICameraDataTraining(iCameraDataTraining: ICameraDataTraining) {
         this.iCameraDataTraining = iCameraDataTraining
@@ -112,6 +113,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     /** Called when the activity is first created.  */
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        cameraRecognizeContainer = ActivityCameraRecognizeBinding.inflate(layoutInflater)
         isFrontCamera = cameraSettingIsFront()
         sDensity = resources.displayMetrics.scaledDensity
         val res =
@@ -218,8 +220,6 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
         )
-
-
         // Menu
         bottomMenuBinding = BottomMenuBinding.inflate(layoutInflater)
         with(bottomMenuBinding) {
@@ -234,10 +234,17 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
             }
         }
         addContentView(
-            bottomMenuBinding.root,
+            cameraRecognizeContainer.root,
             ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        )
+        addContentView(
+            bottomMenuBinding.root,
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
             )
         )
     }

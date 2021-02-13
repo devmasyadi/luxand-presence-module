@@ -208,7 +208,7 @@ class ProcessImageAndDrawResults(context: Context) :
                             it.onCloseEye()
                         }
                         canvas.drawText(
-                            "${names[0]!!} smile: ${confidenceSmilePercent[i.toInt()]}, eyesOpen: ${confidenceEyesOpenPercent[i.toInt()]}",
+                            names[0]!!,
                             ((mFacePositions[i.toInt()]!!.x1 + mFacePositions[i.toInt()]!!.x2) / 2).toFloat(),
                             (mFacePositions[i.toInt()]!!.y2 + shift).toFloat(),
                             mPaintGreen
