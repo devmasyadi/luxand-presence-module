@@ -16,7 +16,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ahmadsuyadi.luxandfacesdk.R
 import com.ahmadsuyadi.luxandfacesdk.databinding.ActivityCameraRecognizeBinding
+import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenu2Binding
 import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenuBinding
+import com.ahmadsuyadi.luxandfacesdk.databinding.TopMenuBinding
 import com.ahmadsuyadi.luxandfacesdk.model.DataTraining
 import com.ahmadsuyadi.luxandfacesdk.utils.ConfigLuxandFaceSDK
 import com.ahmadsuyadi.luxandfacesdk.utils.camera.Preview
@@ -39,8 +41,7 @@ import org.jetbrains.anko.AnkoLogger
 
 open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
-    lateinit var cameraRecognizeContainer: ActivityCameraRecognizeBinding
-    private lateinit var bottomMenuBinding: BottomMenuBinding
+    private lateinit var bottomMenu: BottomMenuBinding
     private var mIsFailed = false
     private var wasStopped = false
     private var isFrontCamera = true
@@ -52,6 +53,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     private var database = "ahmadsuyadi.dat"
     private var pathImageToSave = ""
     private var mLayout: FrameLayout? = null
+    var isShowStepAttendance = false
 
     fun setICameraDataTraining(iCameraDataTraining: ICameraDataTraining) {
         this.iCameraDataTraining = iCameraDataTraining
@@ -98,8 +100,6 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         }
 
         // faster smile detection
-
-        // faster smile detection
         SetTrackerMultipleParameters(
             mDraw!!.mTracker,
             "AttributeExpressionSmileSmoothingSpatial=0.5;AttributeExpressionSmileSmoothingTemporal=10;",
@@ -113,7 +113,6 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     /** Called when the activity is first created.  */
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        cameraRecognizeContainer = ActivityCameraRecognizeBinding.inflate(layoutInflater)
         isFrontCamera = cameraSettingIsFront()
         sDensity = resources.displayMetrics.scaledDensity
         val res =
@@ -132,6 +131,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
             )
             mLayout!!.layoutParams = params
             setContentView(mLayout)
+
         }
     }
 
@@ -220,9 +220,9 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
         )
-        // Menu
-        bottomMenuBinding = BottomMenuBinding.inflate(layoutInflater)
-        with(bottomMenuBinding) {
+        // menu
+        bottomMenu = BottomMenuBinding.inflate(layoutInflater)
+        with(bottomMenu) {
             imgFlipCamera.toBottomMenuColor()
             imgFlash.toBottomMenuColor()
             imgTakePicture.toBottomMenuColor()
@@ -234,19 +234,23 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
             }
         }
         addContentView(
-            cameraRecognizeContainer.root,
-            ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        )
-        addContentView(
-            bottomMenuBinding.root,
+            bottomMenu.root,
             ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
         )
+        if(isShowStepAttendance) {
+            val topMenu = TopMenuBinding.inflate(layoutInflater)
+            addContentView(
+                topMenu.root,
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            )
+        }
+
     }
 
     override fun onStop() {
@@ -263,7 +267,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
     private fun toggleFlash() {
         isTurnOnFlash = !isTurnOnFlash
-        with(bottomMenuBinding) {
+        with(bottomMenu) {
             if (isTurnOnFlash) {
                 mPreview?.mCamera?.turnOnFlash()
                 imgFlash.setImageResource(R.drawable.ic_baseline_flash_on_24)

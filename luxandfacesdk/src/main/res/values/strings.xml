@@ -1,1 +1,4 @@
-<resources />
+<resources>
+    <string name="close_eyes">Kedip</string>
+    <string name="smile">Senyum</string>
+</resources>
