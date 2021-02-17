@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import com.ahmadsuyadi.luxandfacesdk.baserecognize.ICameraAttendance;
 import com.ahmadsuyadi.luxandfacesdk.baserecognize.ICameraDataTraining;
 import com.ahmadsuyadi.luxandfacesdk.model.DataTraining;
 import com.ahmadsuyadi.luxandfacesdk.utils.ConfigLuxandFaceSDK;
+import com.ahmadsuyadi.luxandfacesdk.utils.SharedPrefHelperKt;
+import com.ahmadsuyadi.luxandfacesdk.utils.UtilsKt;
 import com.luxand.FSDK;
 
 import java.util.concurrent.locks.Lock;
@@ -133,7 +136,7 @@ public class ProcessImageAndDrawResults extends View {
         FSDK.FSDK_IMAGEMODE imagemode = new FSDK.FSDK_IMAGEMODE();
         imagemode.mode = FSDK.FSDK_IMAGEMODE.FSDK_IMAGE_COLOR_24BIT;
         FSDK.LoadImageFromBuffer(Image, mRGBData, mImageWidth, mImageHeight, mImageWidth*3, imagemode);
-        FSDK.MirrorImage(Image, false);
+        FSDK.MirrorImage(Image, !SharedPrefHelperKt.cameraSettingIsFront(getContext()));
         FSDK.HImage RotatedImage = new FSDK.HImage();
         FSDK.CreateEmptyImage(RotatedImage);
 
@@ -184,7 +187,17 @@ public class ProcessImageAndDrawResults extends View {
             mIDs[i] = IDs[i];
         }
 
+        float ratio = (canvasWidth * 1.0f) / ImageWidth;
         for (int i = 0; i < (int)face_count[0]; ++i) {
+            FSDK.FSDK_Features Eyes = new FSDK.FSDK_Features();
+            FSDK.GetTrackerEyes(mTracker, 0, mIDs[i], Eyes);
+
+            GetFaceFrame(Eyes, mFacePositions[i]);
+            mFacePositions[i].x1 *= ratio;
+            mFacePositions[i].y1 *= ratio;
+            mFacePositions[i].x2 *= ratio;
+            mFacePositions[i].y2 *= ratio;
+
             FSDK.GetTrackerFacialFeatures(mTracker, 0, IDs[i], mFacialFeatures[i]);
             GetFaceFrame(mFacialFeatures[i], mFacePositions[i]);
 
@@ -216,13 +229,13 @@ public class ProcessImageAndDrawResults extends View {
                         canvas.drawText("Tap to training", (mFacePositions[i].x1+mFacePositions[i].x2)/2, mFacePositions[i].y2+shift, mPaintGreen);
                     }
                     if(iCameraAttendance != null) {
-                        if(confidenceEyesOpenPercent[(int) IDs[i]] < ConfigLuxandFaceSDK.INSTANCE.getMinimumConfidenceEysOpen() &&
-                            confidenceSmilePercent[(int) IDs[i]] > ConfigLuxandFaceSDK.INSTANCE.getMinimumConfidenceSmile())
+                        if(!UtilsKt.isValidConfidenceEyesOpen(confidenceEyesOpenPercent[i]) &&
+                                UtilsKt.isValidConfidenceSmile(confidenceSmilePercent[i]))
                             iCameraAttendance.onSmile();
-                        if(confidenceEyesOpenPercent[(int) IDs[i]] < ConfigLuxandFaceSDK.INSTANCE.getMinimumConfidenceEysOpen() &&
-                                confidenceSmilePercent[(int) IDs[i]] < ConfigLuxandFaceSDK.INSTANCE.getMinimumConfidenceSmile())
+                        if(UtilsKt.isValidConfidenceEyesOpen(confidenceEyesOpenPercent[i]) &&
+                                !UtilsKt.isValidConfidenceSmile(confidenceSmilePercent[i]))
                             iCameraAttendance.onCloseEye();
-                        canvas.drawText(names[0] + "Smile: "+confidenceSmilePercent[(int) IDs[i]]+" EyesOpen: "+confidenceEyesOpenPercent[(int) IDs[i]], (mFacePositions[i].x1+mFacePositions[i].x2)/2, mFacePositions[i].y2+shift, mPaintGreen);
+                        canvas.drawText(names[0], (mFacePositions[i].x1+mFacePositions[i].x2)/2, mFacePositions[i].y2+shift, mPaintGreen);
                     }
                 }
 

@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/strip1"
                 android:text=" - "
                 android:textSize="20sp"
                 android:layout_gravity="center_horizontal"
@@ -54,6 +55,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/strip2"
                 android:text=" - "
                 android:textSize="20sp"
                 android:layout_gravity="center_horizontal"

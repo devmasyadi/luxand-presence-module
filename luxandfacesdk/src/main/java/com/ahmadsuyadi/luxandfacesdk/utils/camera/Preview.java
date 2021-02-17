@@ -9,6 +9,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 
+import com.ahmadsuyadi.luxandfacesdk.utils.SharedPrefHelperKt;
+
 import java.util.List;
 
 // Show video from camera and pass frames to ProcessImageAndDraw class
@@ -46,8 +48,10 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         for (int i = 0; i < Camera.getNumberOfCameras(); i++) {
             Camera.getCameraInfo(i, cameraInfo);
-            //if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK)
-            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK && !SharedPrefHelperKt.cameraSettingIsFront(getContext())) {
+                cameraId = i;
+            }
+            else if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT && SharedPrefHelperKt.cameraSettingIsFront(getContext())) {
                 cameraId = i;
                 frontCameraFound = true;
             }
