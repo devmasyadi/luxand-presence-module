@@ -226,9 +226,11 @@ public class ProcessImageAndDrawResults extends View {
                 if (names[0] != null && names[0].length() > 0) {
                     named = true;
                     if(iCameraDataTraining != null) {
+                        iCameraDataTraining.onRecognize(names[0], (int) IDs[i]);
                         canvas.drawText("Tap to training", (mFacePositions[i].x1+mFacePositions[i].x2)/2, mFacePositions[i].y2+shift, mPaintGreen);
                     }
                     if(iCameraAttendance != null) {
+                        iCameraAttendance.onRecognize(names[0], (int) IDs[i]);
                         if(!UtilsKt.isValidConfidenceEyesOpen(confidenceEyesOpenPercent[i]) &&
                                 UtilsKt.isValidConfidenceSmile(confidenceSmilePercent[i]))
                             iCameraAttendance.onSmile();
@@ -242,6 +244,7 @@ public class ProcessImageAndDrawResults extends View {
             }
             if (!named) {
                 if(iCameraDataTraining != null) {
+                    iCameraDataTraining.onNotRecognize();
                     canvas.drawText("Tap to training", (mFacePositions[i].x1+mFacePositions[i].x2)/2, mFacePositions[i].y2+shift, mPaintGreen);
                 }
                 if(iCameraAttendance != null) {
@@ -297,6 +300,7 @@ public class ProcessImageAndDrawResults extends View {
 
     public void cancelTrainingData() {
         mTouchedIndex = -1;
+        UtilsKt.deleteFile(pathImageToSave);
     }
 
     public void trainingData(DataTraining dataTraining) {
@@ -305,6 +309,8 @@ public class ProcessImageAndDrawResults extends View {
         FSDK.SetName(mTracker, id, dataTraining.getName());
         FSDK.UnlockID(mTracker, id);
         mTouchedIndex = -1;
+        if(iCameraDataTraining!=null)
+            iCameraDataTraining.onGetResultDataTraining((int)id);
     }
 
     static public void decodeYUV420SP(byte[] rgb, byte[] yuv420sp, int width, int height) {
