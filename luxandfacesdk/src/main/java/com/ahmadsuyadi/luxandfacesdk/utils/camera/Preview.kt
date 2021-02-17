@@ -66,12 +66,12 @@ class Preview(private var mContext: Context, private var mDraw: ProcessImageAndD
         } catch (exception: Exception) {
             val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
             builder.setMessage("Cannot open camera")
-                .setPositiveButton("Ok",
-                    { dialogInterface, i ->
-                        Process.killProcess(
-                            Process.myPid()
-                        )
-                    })
+                .setPositiveButton("Ok"
+                ) { _, _ ->
+                    Process.killProcess(
+                        Process.myPid()
+                    )
+                }
                 .show()
             if (mCamera != null) {
                 mCamera!!.release()

@@ -30,13 +30,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    sourceSets {
-        main {
-            jni {
-                srcDirs 'src/main/jni', 'src/main/jniLibs'
-            }
-        }
-    }
     buildFeatures {
         viewBinding true
     }
