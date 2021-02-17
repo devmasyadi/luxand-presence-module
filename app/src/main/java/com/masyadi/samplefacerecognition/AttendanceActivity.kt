@@ -32,10 +32,12 @@ class AttendanceActivity : CameraRecognizeActivity(), AnkoLogger {
     private val iCameraAttendance = object : ICameraAttendance {
         override fun onSmile() {
             toast("onSmile")
+            info("Hallo onSmile")
         }
 
         override fun onCloseEye() {
             toast("onCloseEye")
+            info("Hallo onCloseEye")
         }
 
         override fun onTakePicture(outputPathImage: String?) {

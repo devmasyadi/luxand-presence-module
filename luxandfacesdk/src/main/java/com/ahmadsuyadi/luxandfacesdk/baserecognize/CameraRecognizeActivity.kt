@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ahmadsuyadi.luxandfacesdk.R
-import com.ahmadsuyadi.luxandfacesdk.databinding.ActivityCameraRecognizeBinding
-import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenu2Binding
 import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenuBinding
 import com.ahmadsuyadi.luxandfacesdk.databinding.TopMenuBinding
 import com.ahmadsuyadi.luxandfacesdk.model.DataTraining
@@ -55,6 +53,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     private var pathImageToSave = ""
     private var mLayout: FrameLayout? = null
     var isShowStepAttendance = false
+    var sDensity = 1.0f
 
     fun setICameraDataTraining(iCameraDataTraining: ICameraDataTraining) {
         this.iCameraDataTraining = iCameraDataTraining
@@ -116,8 +115,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         isFrontCamera = cameraSettingIsFront()
         sDensity = resources.displayMetrics.scaledDensity
-        val res =
-            ActivateLibrary(ConfigLuxandFaceSDK.licenseKey)
+        val res = ActivateLibrary(ConfigLuxandFaceSDK.licenseKey)
         if (res != FSDK.FSDKE_OK) {
             mIsFailed = true
             showErrorAndClose("FaceSDK activation failed", res)
@@ -130,7 +128,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            mLayout!!.layoutParams = params
+            mLayout?.layoutParams = params
             setContentView(mLayout)
 
         }
@@ -183,23 +181,24 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         val background = View(this)
         background.setBackgroundColor(Color.BLACK)
         mDraw = ProcessImageAndDrawResults(this)
+        mDraw?.sDensity = sDensity
         mDraw?.iCameraAttendance = iCameraAttendance
         mDraw?.iCameraDataTraining = iCameraDataTraining
         mDraw?.pathImageToSave = pathImageToSave
         mPreview = Preview(this, mDraw)
         //mPreview.setBackgroundColor(Color.GREEN);
         //mDraw.setBackgroundColor(Color.RED);
-        mDraw!!.mTracker = HTracker()
+        mDraw?.mTracker = HTracker()
         val templatePath = this.applicationInfo.dataDir + "/" + database
-        if (FSDK.FSDKE_OK != LoadTrackerMemoryFromFile(mDraw!!.mTracker, templatePath)) {
-            val res = CreateTracker(mDraw!!.mTracker)
+        if (FSDK.FSDKE_OK != LoadTrackerMemoryFromFile(mDraw?.mTracker, templatePath)) {
+            val res = CreateTracker(mDraw?.mTracker)
             if (FSDK.FSDKE_OK != res) {
                 showErrorAndClose("Error creating tracker", res)
             }
         }
         resetTrackerParameters()
         this.window.setBackgroundDrawable(ColorDrawable()) //black background
-        mLayout!!.visibility = View.VISIBLE
+        mLayout?.visibility = View.VISIBLE
         addContentView(
             background,
             ViewGroup.LayoutParams(
