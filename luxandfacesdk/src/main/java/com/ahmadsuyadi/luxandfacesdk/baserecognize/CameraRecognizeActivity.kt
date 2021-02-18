@@ -27,13 +27,7 @@ import com.ahmadsuyadi.luxandfacesdk.utils.extension.turnOffFlash
 import com.ahmadsuyadi.luxandfacesdk.utils.extension.turnOnFlash
 import com.ahmadsuyadi.luxandfacesdk.utils.setCameraSetting
 import com.luxand.FSDK
-import com.luxand.FSDK.ActivateLibrary
-import com.luxand.FSDK.CreateTracker
-import com.luxand.FSDK.HTracker
-import com.luxand.FSDK.Initialize
-import com.luxand.FSDK.LoadTrackerMemoryFromFile
-import com.luxand.FSDK.SaveTrackerMemoryToFile
-import com.luxand.FSDK.SetTrackerMultipleParameters
+import com.luxand.FSDK.*
 import org.jetbrains.anko.AnkoLogger
 
 
