@@ -43,7 +43,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     private var mDraw: ProcessImageAndDrawResults? = null
     private var iCameraDataTraining: ICameraDataTraining? = null
     private var iCameraAttendance: ICameraAttendance? = null
-    private var database = this.applicationInfo.dataDir + "/ahmadsuyadi.dat"
+    private var database: String? = null
     private var pathImageToSave = ""
     private var mLayout: FrameLayout? = null
     var isShowStepAttendance = false
