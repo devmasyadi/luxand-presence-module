@@ -301,8 +301,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun saveTrackerMemory() {
-        val templatePath = this.applicationInfo.dataDir + "/" + database
-        SaveTrackerMemoryToFile(mDraw!!.mTracker, templatePath)
+        SaveTrackerMemoryToFile(mDraw!!.mTracker, database)
     }
 
     fun takePicture(pathImageToSave: String) {
