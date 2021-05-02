@@ -73,7 +73,7 @@ class DataTrainingActivity : CameraRecognizeActivity(), AnkoLogger {
                 isValidToTakePicture = true
         }
 
-        override fun onGetResultDataTraining(recognizeID: Int) {
+        override fun onGetResultDataTraining(recognizeID: Long) {
             toast("onGetResultDataTraining: $recognizeID")
             info("Hallo onGetResultDataTraining")
             dataTraining?.recognizeID = recognizeID
@@ -88,7 +88,7 @@ class DataTrainingActivity : CameraRecognizeActivity(), AnkoLogger {
             info("Hallo onTakePicture")
         }
 
-        override fun onRecognize(name: String, recognizeID: Int) {
+        override fun onRecognize(name: String, recognizeID: Long) {
             with(dataTraining) {
                 if (this?.recognizeID != null)
                     isValidToTakePicture =

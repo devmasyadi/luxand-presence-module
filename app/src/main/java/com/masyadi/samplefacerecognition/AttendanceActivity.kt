@@ -44,7 +44,7 @@ class AttendanceActivity : CameraRecognizeActivity(), AnkoLogger {
             toast("outputPathImage")
         }
 
-        override fun onRecognize(name: String, recognizeID: Int) {
+        override fun onRecognize(name: String, recognizeID: Long) {
             info("Hallo onRecognize $name, $recognizeID")
         }
 

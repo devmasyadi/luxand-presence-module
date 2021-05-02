@@ -43,7 +43,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     private var mDraw: ProcessImageAndDrawResults? = null
     private var iCameraDataTraining: ICameraDataTraining? = null
     private var iCameraAttendance: ICameraAttendance? = null
-    private var database = "ahmadsuyadi.dat"
+    private var database = this.applicationInfo.dataDir + "/ahmadsuyadi.dat"
     private var pathImageToSave = ""
     private var mLayout: FrameLayout? = null
     var isShowStepAttendance = false
@@ -183,8 +183,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         //mPreview.setBackgroundColor(Color.GREEN);
         //mDraw.setBackgroundColor(Color.RED);
         mDraw?.mTracker = HTracker()
-        val templatePath = this.applicationInfo.dataDir + "/" + database
-        if (FSDK.FSDKE_OK != LoadTrackerMemoryFromFile(mDraw?.mTracker, templatePath)) {
+        if (FSDK.FSDKE_OK != LoadTrackerMemoryFromFile(mDraw?.mTracker, database)) {
             val res = CreateTracker(mDraw?.mTracker)
             if (FSDK.FSDKE_OK != res) {
                 showErrorAndClose("Error creating tracker", res)
