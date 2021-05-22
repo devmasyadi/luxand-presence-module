@@ -33,8 +33,8 @@ import org.jetbrains.anko.AnkoLogger
 
 open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
-    lateinit var bottomMenu: BottomMenuBinding? = null
-    lateinit var topMenu: TopMenuBinding? = null
+    var bottomMenu: BottomMenuBinding? = null
+    var topMenu: TopMenuBinding? = null
     private var mIsFailed = false
     private var wasStopped = false
     private var isFrontCamera = true
@@ -215,18 +215,18 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         // menu
         bottomMenu = BottomMenuBinding.inflate(layoutInflater)
         with(bottomMenu) {
-            imgFlipCamera.toBottomMenuColor()
-            imgFlash.toBottomMenuColor()
-            imgTakePicture.toBottomMenuColor()
-            imgFlipCamera.setOnClickListener {
+            this?.imgFlipCamera?.toBottomMenuColor()
+            this?.imgFlash?.toBottomMenuColor()
+            this?.imgTakePicture?.toBottomMenuColor()
+            this?.imgFlipCamera?.setOnClickListener {
                 flipCamera()
             }
-            imgFlash.setOnClickListener {
+            this?.imgFlash?.setOnClickListener {
                 toggleFlash()
             }
         }
         addContentView(
-            bottomMenu.root,
+            bottomMenu?.root,
             ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -234,7 +234,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         )
         topMenu = TopMenuBinding.inflate(layoutInflater)
         addContentView(
-            topMenu.root,
+            topMenu?.root,
             ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -260,10 +260,10 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
         with(bottomMenu) {
             if (isTurnOnFlash) {
                 mPreview?.mCamera?.turnOnFlash()
-                imgFlash.setImageResource(R.drawable.ic_baseline_flash_on_24)
+                this?.imgFlash?.setImageResource(R.drawable.ic_baseline_flash_on_24)
             } else {
                 mPreview?.mCamera?.turnOffFlash()
-                imgFlash.setImageResource(R.drawable.ic_baseline_flash_off_24)
+                this?.imgFlash?.setImageResource(R.drawable.ic_baseline_flash_off_24)
             }
         }
     }
@@ -353,7 +353,7 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
             dialog.setMessage(message)
             dialog.setNegativeButton(
                 "Ok"
-            ) { dialog, _ -> dialog.dismiss() }
+            ) { _dialog, _ -> _dialog.dismiss() }
             if (callback != null) {
                 dialog.setOnDismissListener { callback.run() }
             }

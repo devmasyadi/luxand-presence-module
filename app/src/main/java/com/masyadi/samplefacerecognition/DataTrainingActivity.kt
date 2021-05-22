@@ -102,12 +102,14 @@ class DataTrainingActivity : CameraRecognizeActivity(), AnkoLogger {
 }
 
 fun ImageView.loadImageLocal(pathImage: String?) {
-    Glide.with(this.context)
-        .load(File(pathImage))
-        .override(100, 100)
-        .centerCrop()
-        .placeholder(ColorDrawable(Color.GRAY))
-        .error(ColorDrawable(Color.GREEN))
-        .into(this)
+    pathImage?.let {
+        Glide.with(this.context)
+            .load(File(it))
+            .override(100, 100)
+            .centerCrop()
+            .placeholder(ColorDrawable(Color.GRAY))
+            .error(ColorDrawable(Color.GREEN))
+            .into(this)
+    }
 
 }

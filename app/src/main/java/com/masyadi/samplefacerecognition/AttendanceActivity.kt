@@ -22,7 +22,6 @@ class AttendanceActivity : CameraRecognizeActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
 
-        isShowStepAttendance = true
         setICameraAttendance(iCameraAttendance)
         checkCameraPermissionsAndOpenCamera()
 

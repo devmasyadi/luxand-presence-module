@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:visibility="gone"
         android:orientation="vertical"
         android:id="@+id/llTopMenu"
         android:background="@color/overlay_dark_70"
