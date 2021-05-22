@@ -33,8 +33,8 @@ import org.jetbrains.anko.AnkoLogger
 
 open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
 
-    lateinit var bottomMenu: BottomMenuBinding
-    lateinit var topMenu: TopMenuBinding
+    lateinit var bottomMenu: BottomMenuBinding? = null
+    lateinit var topMenu: TopMenuBinding? = null
     private var mIsFailed = false
     private var wasStopped = false
     private var isFrontCamera = true
@@ -46,7 +46,6 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
     private var database: String? = null
     private var pathImageToSave = ""
     private var mLayout: FrameLayout? = null
-    var isShowStepAttendance = false
     var sDensity = 1.0f
 
     fun setICameraDataTraining(iCameraDataTraining: ICameraDataTraining) {
@@ -233,16 +232,14 @@ open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
         )
-        if(isShowStepAttendance) {
-            topMenu = TopMenuBinding.inflate(layoutInflater)
-            addContentView(
-                topMenu.root,
-                ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+        topMenu = TopMenuBinding.inflate(layoutInflater)
+        addContentView(
+            topMenu.root,
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
             )
-        }
+        )
 
     }
 
