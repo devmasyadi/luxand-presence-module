@@ -17,14 +17,13 @@ import com.ahmadsuyadi.luxandfacesdk.utils.isValidConfidenceSmile
 import com.luxand.FSDK
 import com.luxand.FSDK.GetTrackerFacialAttribute
 import com.luxand.FSDK.GetValueConfidence
-import org.jetbrains.anko.AnkoLogger
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.math.pow
 
 // Draw graphics on top of the video
 class ProcessImageAndDrawResults(context: Context) :
-    View(context), AnkoLogger {
+    View(context) {
     var mTracker: FSDK.HTracker? = null
     private val MAX_FACES = 5
     private val mFacePositions = arrayOfNulls<FaceRectangle>(MAX_FACES)

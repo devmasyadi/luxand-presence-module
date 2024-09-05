@@ -8,15 +8,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Process
-import android.view.*
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ahmadsuyadi.luxandfacesdk.R
-import com.ahmadsuyadi.luxandfacesdk.databinding.ActivityCameraRecognizeBinding
-import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenu2Binding
 import com.ahmadsuyadi.luxandfacesdk.databinding.BottomMenuBinding
 import com.ahmadsuyadi.luxandfacesdk.databinding.TopMenuBinding
 import com.ahmadsuyadi.luxandfacesdk.model.DataTraining
@@ -36,10 +35,9 @@ import com.luxand.FSDK.Initialize
 import com.luxand.FSDK.LoadTrackerMemoryFromFile
 import com.luxand.FSDK.SaveTrackerMemoryToFile
 import com.luxand.FSDK.SetTrackerMultipleParameters
-import org.jetbrains.anko.AnkoLogger
 
 
-open class CameraRecognizeActivity : AppCompatActivity(), AnkoLogger {
+open class CameraRecognizeActivity : AppCompatActivity() {
 
     lateinit var bottomMenu: BottomMenuBinding
     lateinit var topMenu: TopMenuBinding

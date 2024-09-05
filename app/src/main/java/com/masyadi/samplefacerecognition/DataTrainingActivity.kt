@@ -11,13 +11,10 @@ import com.ahmadsuyadi.luxandfacesdk.model.DataTraining
 import com.bumptech.glide.Glide
 import com.masyadi.samplefacerecognition.databinding.ActivityDataTrainingBinding
 import com.masyadi.samplefacerecognition.databinding.DialogConfirmImageTrainingBinding
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
 import java.io.File
-import java.util.*
+import java.util.Date
 
-class DataTrainingActivity : CameraRecognizeActivity(), AnkoLogger {
+class DataTrainingActivity : CameraRecognizeActivity() {
 
     private lateinit var binding: ActivityDataTrainingBinding
     private lateinit var dialogConfirmImageTrainingBinding: DialogConfirmImageTrainingBinding
@@ -60,22 +57,17 @@ class DataTrainingActivity : CameraRecognizeActivity(), AnkoLogger {
             if (isValidToTakePicture) {
                 takePicture(getPathImage())
             } else {
-                toast("Maaf anda bukan pemilik wajah ${dataTraining?.name}")
                 cancelTrainingData()
             }
-            info("Hallo onTapToTraining")
 
         }
 
         override fun onNotRecognize() {
-            info("Hallo onNotRecognize")
             if (dataTraining?.recognizeID == null)
                 isValidToTakePicture = true
         }
 
         override fun onGetResultDataTraining(recognizeID: Int) {
-            toast("onGetResultDataTraining: $recognizeID")
-            info("Hallo onGetResultDataTraining")
             dataTraining?.recognizeID = recognizeID
             dialog.dismiss()
         }
@@ -85,7 +77,6 @@ class DataTrainingActivity : CameraRecognizeActivity(), AnkoLogger {
                 dialogConfirmImageTrainingBinding.imageTakePicture.loadImageLocal(outputPathImage)
                 show()
             }
-            info("Hallo onTakePicture")
         }
 
         override fun onRecognize(name: String, recognizeID: Int) {

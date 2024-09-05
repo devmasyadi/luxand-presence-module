@@ -1,10 +1,9 @@
 package com.masyadi.samplefacerecognition
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ahmadsuyadi.luxandfacesdk.utils.ConfigLuxandFaceSDK
 import com.masyadi.samplefacerecognition.databinding.ActivityMainBinding
-import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,11 +15,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.button.setOnClickListener {
-            startActivity<DataTrainingActivity>()
+            startActivity(Intent(this, DataTrainingActivity::class.java))
         }
 
         binding.button2.setOnClickListener {
-            startActivity<AttendanceActivity>()
+            startActivity(Intent(this, AttendanceActivity::class.java))
         }
     }
 }
